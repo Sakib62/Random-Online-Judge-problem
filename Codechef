@@ -1,0 +1,65 @@
+//an array of n elements
+//print all the subarrays of length K sequentially in left to right order.
+//reverse the position odd positioned subarrays(i.e. swap first subarray with the last odd poositioned subarray)
+//swap third subarray with 2nd last odd positioned subarray
+//print all subarray
+
+#include <bits/stdc++.h>
+using namespace std;
+int main()
+{ 
+   int n,k;
+   cin>>n>>k;
+   int a[n];
+   for(int i=0;i<n;i++)
+   {
+       cin>>a[i];
+   }
+   int b[n-k+1][k];//we can make beginning of subarrays from 0th index till n-k th index     
+   //total subarrays are n-k+1 including the last one
+   for(int i=0;i<n-k+1;i++)//2d array or matrix
+   {
+       int p=i; /// start element of the subarray
+       for(int j=0;j<k;j++)
+       {
+           b[i][j]=a[p]; //total k elements in the subarray 
+           p++; //p will increase as k increase
+       }
+   }
+   
+   for(int i=0;i<n-k+1;i++)
+   {
+       for(int j=0;j<k;j++)
+       {
+           cout<<b[i][j]<<" ";
+       }
+       cout<<"\n";
+   }
+    cout<<"\n\n";
+
+///reversing the odd positioned subarrays
+    int rows=n-k+1;
+    if( (n-k+1)%2==0 ) rows=n-k; //if  row no. is even, exclude last index
+    for(int i=0;i<(rows-1)/2;i=i+2) // rows-1 is the middle index (odd based) , it will stay in its place
+                                    //so we swap from first subarrays till middle
+    {
+        for(int j=0;j<k;j++)
+        {
+           int temp=b[i][j];
+           b[i][j]=b[rows-1-i][j]; // if we don't use temp ,we can iterate through all index 
+           b[rows-1-i][j]=temp;
+        }
+    }
+    
+   for(int i=0;i<n-k+1;i++)
+   {
+       for(int j=0;j<k;j++)
+       {
+           cout<<b[i][j]<<" ";
+       }
+       cout<<"\n";
+   }
+    
+    cout<<"\n\n";
+    return 0;
+}
